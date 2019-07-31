@@ -1,0 +1,64 @@
+<configuration>
+<!-- 指定mr框架为yarn方式 -->
+<property>
+  <name>mapreduce.framework.name</name>
+  <value>yarn</value>
+</property>
+
+<!-- 指定mapreduce jobhistory地址 -->
+<property>
+  <name>mapreduce.jobhistory.address</name>
+  <value>foo3:10020</value>
+</property>
+     
+<!-- 任务历史服务器的web地址 -->
+<property>
+  <name>mapreduce.jobhistory.webapp.address</name>
+  <value>foo3:19888</value>
+</property>
+<property>
+  <name>mapreduce.application.classpath</name>
+  <value>
+      /d1/hadoop/etc/hadoop,
+      /d1/hadoop/share/hadoop/common/*,
+      /d1/hadoop/share/hadoop/common/lib/*,
+      /d1/hadoop/share/hadoop/hdfs/*,
+      /d1/hadoop/share/hadoop/hdfs/lib/*,
+      /d1/hadoop/share/hadoop/mapreduce/*,
+      /d1/hadoop/share/hadoop/mapreduce/lib/*,
+      /d1/hadoop/share/hadoop/yarn/*,
+      /d1/hadoop/share/hadoop/yarn/lib/*
+  </value>
+</property>
+
+<property>
+  <name>mapreduce.jobhistory.done-dir</name>
+  <value>/d4/yarn/history/done</value>
+</property>
+<property>
+  <name>mapreduce.jobhistory.intermediate-done-dir</name>
+  <value>/d4/yarn/history/done_intermediate</value>
+</property>
+
+<property>
+  <name>mapreduce.map.memory.mb</name>
+  <value>150000</value>
+  <description>每个Map任务的物理内存限制</description>
+</property>
+
+<property>
+  <name>mapreduce.reduce.memory.mb</name>
+  <value>150000</value>
+  <description>每个Reduce任务的物理内存限制</description>
+</property>
+
+<property>
+  <name>mapreduce.map.java.opts</name>
+  <value>-Xmx15098m</value>
+</property>
+
+<property>
+  <name>mapreduce.reduce.java.opts</name>
+  <value>-Xmx15098m</value>
+</property>
+</configuration>
