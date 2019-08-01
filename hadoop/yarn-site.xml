@@ -26,7 +26,15 @@
 <!-- 指定zk集群地址 -->
 <property>
   <name>yarn.resourcemanager.zk-address</name>
-  <value>hadoop1:2181,hadoop2:2181,hadoop3:2181</value>
+  <value>foo1:2181,foo2:2181,foo3:2181,foo4:2181,foo5:2181</value>
+</property>
+<property>
+  <name>ha.zookeeper.quorum</name>
+  <value>foo1:2181,foo2:2181,foo3:2181,foo4:2181,foo5:2181</value>
+</property>
+<property>
+  <name>yarn.resourcemanager.zk-state-store.address</name>
+  <value>foo1:2181,foo2:2181,foo3:2181,foo4:2181,foo5:2181</value>
 </property>
 <property>
   <name>yarn.nodemanager.aux-services</name>
@@ -52,4 +60,185 @@
   <name>yarn.resourcemanager.store.class</name>
   <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore</value>
 </property>
+
+<property>
+  <name>yarn.resourcemanager.connect.retry-interval.ms</name>
+  <value>2000</value>
+</property>
+<property>
+  <name>yarn.resourcemanager.ha.automatic-failover.enabled</name>
+  <value>true</value>
+</property>
+<property>
+  <name>yarn.resourcemanager.recovery.enabled</name>
+  <value>true</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.store.class</name>
+    <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore</value>
+</property>
+<property>
+    <name>yarn.app.mapreduce.am.scheduler.connection.wait.interval-ms</name>
+    <value>5000</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.address.rm1</name>
+    <value>foo3:8032</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.scheduler.address.rm1</name>
+    <value>foo3:8030</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.webapp.address.rm1</name>
+    <value>foo3:8088</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.resource-tracker.address.rm1</name>
+    <value>foo3:8031</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.admin.address.rm1</name>
+    <value>foo3:8033</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.ha.admin.address.rm1</name>
+    <value>foo3:8034</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.address.rm2</name>
+    <value>foo4:8032</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.scheduler.address.rmb</name>
+    <value>foo4:8030</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.webapp.address.rmb</name>
+    <value>foo4:8088</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.resource-tracker.address.rmb</name>
+    <value>foo4:8031</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.admin.address.rmb</name>
+    <value>foo4:8033</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.ha.admin.address.rmb</name>
+    <value>foo4:8034</value>
+</property>
+<property>
+  <name>yarn.nodemanager.aux-services</name>
+  <value>mapreduce_shuffle</value>
+</property>
+<property>
+  <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+  <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+</property>
+<property>
+  <name>yarn.nodemanager.local-dirs</name>
+  <value>/d4/local/hadoop/yarn</value>
+</property>
+<property>
+  <name>yarn.nodemanager.log-dirs</name>
+  <value>/d4/local/hadoop/log</value>
+</property>
+<property>
+    <name>mapreduce.shuffle.port</name>
+    <value>23080</value>
+</property>
+<property>
+    <name>yarn.client.failover-proxy-provider</name>
+    <value>org.apache.hadoop.yarn.client.ConfiguredRMFailoverProxyProvider</value>
+</property>
+<property>
+    <name>yarn.resourcemanager.ha.automatic-failover.zk-base-path</name>
+    <value>/d4/local/hadoop/yarn-leader-election</value>
+    <description>Optional setting. The default value is /yarn-leader-election</description>
+</property>
+<property>
+    <name>yarn.log-aggregation-enable</name>
+    <value>true</value>
+</property>
+<property>
+    <name>yarn.log-aggregation.retain-seconds</name>
+    <value>86400</value>
+</property>
+<!--它们表示单个容器可以申请的最小与最大内存。-->
+<property>
+    <name>yarn.scheduler.minimum-allocation-mb</name>
+    <value>1024</value>
+</property>
+<property>
+    <name>yarn.scheduler.maximum-allocation-mb</name>
+    <value>150000</value>
+</property>
+
+
+<property>
+    <name>yarn.nodemanager.resource.cpu-vcores</name>
+    <value>36</value>
+</property>
+<property>
+    <name>yarn.scheduler.minimum-allocation-vcores</name>
+    <value>1</value>
+</property>
+
+<property>
+    <name>yarn.scheduler.maximum-allocation-vcores</name>
+    <value>36</value>
+</property>
+
+<!--前者表示单个节点可用的最大内存，RM中的两个值都不应该超过该值。后者表示虚拟内存率，即占task所用内存的百分比，默认为2.1.-->
+<property>
+  <description>Amount of physical memory, in MB, that can be allocated
+      for containers.
+  </description>
+  <name>yarn.nodemanager.resource.memory-mb</name>
+  <value>150000</value>
+</property>
+<property>
+  <name>yarn.nodemanager.pmem-check-enabled</name>
+  <value>false</value>
+</property>
+<property>
+  <name>yarn.nodemanager.vmem-check-enabled</name>
+  <value>false</value>
+  <description>Whether virtual memory limits will be enforced for containers</description>
+</property>
+<property>
+  <description>Ratio between virtual memory to physical memory when
+      setting memory limits for containers. Container allocations are
+      expressed in terms of physical memory, and virtual memory usage
+      is allowed to exceed this allocation by this ratio.
+  </description>
+  <name>yarn.nodemanager.vmem-pmem-ratio</name>
+  <value>10.1</value>
+</property>
+<property>
+  <name>yarn.log.server.url</name>
+  <value>http://foo3:19888/jobhistory/logs</value>
+</property>
+<property>
+  <name>mapreduce.map.memory.mb</name>
+  <value>150000</value>
+</property>
+
+<property>
+  <name>mapreduce.reduce.memory.mb</name>
+  <value>150000</value>
+</property>
+
+<property>
+  <name>mapreduce.map.java.opts</name>
+  <value>-Xmx15098m</value>
+</property>
+
+<property>
+  <name>mapreduce.reduce.java.opts</name>
+  <value>-Xmx15098m</value>
+</property>
+
 </configuration>
