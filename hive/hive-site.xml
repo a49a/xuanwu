@@ -1,0 +1,172 @@
+<configuration>
+  <!-- WARNING!!! This file is auto generated for documentation purposes ONLY! -->
+  <!-- WARNING!!! Any changes you make to this file will be ignored by Hive.   -->
+  <!-- WARNING!!! You must make your changes in hive-site.xml instead.         -->
+  <!-- Hive Execution Parameters -->
+
+<property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:mysql://localhost:3306/db_hive?createDatabaseIfNotExsit=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</value>
+    <description>JDBC connect string for a JDBC metastore</description>
+</property>
+<property>
+    <name>javax.jdo.option.ConnectionDriverName</name>
+    <value>com.mysql.jdbc.Driver</value>
+    <description>Driver class name for a JDBC metastore</description>
+</property>
+<property>
+    <name>javax.jdo.option.ConnectionUserName</name>
+    <value>hive</value>
+    <description>username to use against metastore database</description>
+</property>
+<property>
+    <name>javax.jdo.option.ConnectionPassword</name>
+    <value>hive</value>
+    <description>password to use against metastore database</description>
+</property>
+<property>
+    <name>datanucleus.autoCreateSchema</name>
+    <value>true</value>
+</property>
+<property>
+    <name>datanucleus.autoCreateTables</name>
+    <value>true</value>
+</property>
+<property>
+    <name>datanucleus.autoCreateColumns</name>
+    <value>true</value>
+</property>
+<!-- 设置 hive仓库的HDFS上的位置 -->
+<property>
+    <name>hive.metastore.warehouse.dir</name>
+    <value>/hive/warehouse</value>
+    <description>location of default database for the warehouse</description>
+</property>
+<!--资源临时文件存放位置 -->
+<property>
+    <name>hive.downloaded.resources.dir</name>
+    <value>/d4/local/tmp/resources</value>
+    <description>Temporary local directory for added resources in the remote file system.</description>
+ </property>
+ <!-- Hive在0.9版本之前需要设置hive.exec.dynamic.partition为true, Hive在0.9版本之后默认为true -->
+<property>
+    <name>hive.exec.dynamic.partition</name>
+    <value>true</value>
+ </property>
+<property>
+    <name>hive.exec.dynamic.partition.mode</name>
+    <value>nonstrict</value>
+ </property>
+<!-- 修改日志位置 -->
+<property>
+    <name>hive.exec.local.scratchdir</name>
+    <value>/d4/var/hive/HiveJobsLog</value>
+    <description>Local scratch space for Hive jobs</description>
+</property>
+<property>
+    <name>hive.downloaded.resources.dir</name>
+    <value>/d4/var/hive/ResourcesLog</value>
+    <description>Temporary local directory for added resources in the remote file system.</description>
+</property>
+<property>
+    <name>hive.querylog.location</name>
+    <value>/d4/var/hive/HiveRunLog</value>
+    <description>Location of Hive run time structured log file</description>
+</property>
+<property>
+    <name>hive.server2.logging.operation.log.location</name>
+    <value>/d4/var/hive/OpertitionLog</value>
+    <description>Top level directory where operation tmp are stored if logging functionality is enabled</description>
+</property>
+<!-- 配置HWI接口 -->
+<property>  
+    <name>hive.hwi.war.file</name>  
+    <value>/d4/bin/hive/lib/hive-hwi-2.1.1.jar</value>  
+    <description>This sets the path to the HWI war file, relative to ${HIVE_HOME}. </description>  
+</property>  
+<property>  
+    <name>hive.hwi.listen.host</name>  
+    <value>foo4</value>  
+    <description>This is the host address the Hive Web Interface will listen on</description>  
+</property>  
+<property>  
+    <name>hive.hwi.listen.port</name>  
+    <value>9999</value>  
+    <description>This is the port the Hive Web Interface will listen on</description>  
+</property>
+<!-- Hiveserver2已经不再需要hive.metastore.local这个配置项了(hive.metastore.uris为空，则表示是metastore在本地
+，否则就是远程)远程的话直接配置hive.metastore.uris即可 -->
+<!-- property>
+         <name>hive.metastore.uris</name>
+    <value>thrift://master:9083</value>
+    <description>Thrift URI for the remote metastore. Used by metastore client to connect to remote metastore.</description>
+</property --> 
+<property>
+    <name>hive.server2.thrift.bind.host</name>
+    <value>foo4</value>
+</property>
+<property>
+    <name>hive.server2.thrift.port</name>
+    <value>10000</value>
+</property>
+<property>
+    <name>hive.server2.thrift.http.port</name>
+    <value>10001</value>
+</property>
+<property>
+    <name>hive.server2.thrift.http.path</name>
+    <value>foo4</value>
+</property>
+<!-- HiveServer2的WEB UI -->
+<property>
+    <name>hive.server2.webui.host</name>
+    <value>foo4</value>
+</property>
+<property>
+    <name>hive.server2.webui.port</name>
+    <value>10002</value>
+</property>
+<property>
+    <name>hive.scratch.dir.permission</name>
+    <value>755</value>
+</property>
+<!-- 下面hive.aux.jars.path这个属性里面你这个jar包地址如果是本地的记住前面要加file://不然找不到, 而且会报org.apache.hadoop.hive.contrib.serde2.RegexSerDe错误 
+     <property>
+    <name>hive.aux.jars.path</name>
+    <value>file:///app/spark/lib/spark-assembly-1.6.0-hadoop2.6.0.jar</value>
+</property>
+-->
+<property>
+    <name>hive.server2.enable.doAs</name>
+    <value>false</value>
+</property>   
+<!-- property>
+         <name>hive.server2.authentication</name>
+    <value>NOSASL</value>
+</property -->
+<property>
+    <name>hive.auto.convert.join</name>
+    <value>false</value>
+</property>
+<property>
+    <name>spark.dynamicAllocation.enabled</name>
+    <value>true</value>
+    <description>动态分配资源</description>  
+</property>
+<property>
+    <name>hive.server2.support.dynamic.service.discovery</name>
+    <value>true</value>
+</property>
+<property>
+    <name>hive.server2.zookeeper.namespace</name>
+    <value>hiveserver2</value>
+  </property>
+<property>
+    <name>hive.zookeeper.quorum</name>
+    <value>foo1:2181,foo2:2181,foo3:2181,foo4:2181,foo5:2181</value>
+</property>
+<!-- 使用Hive on spark时,若不设置下列该配置会出现内存溢出异常 -->
+<property>
+    <name>spark.driver.extraJavaOptions</name>
+    <value>-XX:PermSize=128M -XX:MaxPermSize=3100M</value>
+</property>
