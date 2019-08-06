@@ -7,7 +7,7 @@
 <!-- 指定RM的cluster id -->
 <property>
   <name>yarn.resourcemanager.cluster-id</name>
-  <value>foo_yarn</value>
+  <value>rm_cluster</value>
 </property>
 <!-- 指定RM的名字 -->
 <property>
@@ -23,7 +23,7 @@
   <name>yarn.resourcemanager.hostname.rm2</name>
   <value>foo4</value>
 </property>
-<!-- 指定zk集群地址 -->
+<!-- 指定zk集群地址，用于状态存储和内部的leader选举 -->
 <property>
   <name>yarn.resourcemanager.zk-address</name>
   <value>foo1:2181,foo2:2181,foo3:2181,foo4:2181,foo5:2181</value>
@@ -175,7 +175,6 @@
     <name>yarn.scheduler.maximum-allocation-mb</name>
     <value>150000</value>
 </property>
-
 
 <property>
     <name>yarn.nodemanager.resource.cpu-vcores</name>
