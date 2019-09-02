@@ -4,6 +4,7 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+
   kafka:
     image: wurstmeister/kafka
     ports:
@@ -13,3 +14,15 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    links:
+      - zookeeper:zookeeper
+      
+  kafka-manager:
+    image: kafkamanager/kafka-manager
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_HOSTS: zookeepr:2181
+    links:
+      - zookeeper:zookeeper
+      - kafka:kafka
