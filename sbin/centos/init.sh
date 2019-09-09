@@ -38,4 +38,15 @@ export FLINK_HOME=/opt/flink
 export PATH=$PATH:${ZOOKEEPER_HOME}/bin:${HADOOP_HOME}/bin:${FLINK_HOME}/bin
 EOF
 
-mv ${HOME}/zookeeper/conf/zoo_sample.cfg ${HOME}/zookeeper/conf/zoo.cfg
+cp ${HOME}/zookeeper/conf/zoo_sample.cfg ${HOME}/zookeeper/conf/zoo.cfg
+
+cat >> /etc/hosts << EOF
+192.168.124.13 tail1
+192.168.124.14 tail2
+192.168.124.15 tail3
+EOF
+mkdir -p /var/zookeeper/data
+service sshd start
+virsh net-destroy  default
+
+#echo 1 > /var/zookeeper/data/myid

@@ -26,15 +26,15 @@
 <!-- 指定zk集群地址，用于状态存储和内部的leader选举 -->
 <property>
   <name>yarn.resourcemanager.zk-address</name>
-  <value>foo1:2181,foo2:2181,foo3:2181,foo4:2181,foo5:2181</value>
+  <value>foo1:2181,foo2:2181,foo3:2181</value>
 </property>
 <property>
   <name>ha.zookeeper.quorum</name>
-  <value>foo1:2181,foo2:2181,foo3:2181,foo4:2181,foo5:2181</value>
+  <value>foo1:2181,foo2:2181,foo3:2181</value>
 </property>
 <property>
   <name>yarn.resourcemanager.zk-state-store.address</name>
-  <value>foo1:2181,foo2:2181,foo3:2181,foo4:2181,foo5:2181</value>
+  <value>foo1:2181,foo2:2181,foo3:2181</value>
 </property>
 <property>
   <name>yarn.nodemanager.aux-services</name>
@@ -139,11 +139,11 @@
 </property>
 <property>
   <name>yarn.nodemanager.local-dirs</name>
-  <value>/d4/local/hadoop/yarn</value>
+  <value>/var/hadoop/yarn</value>
 </property>
 <property>
   <name>yarn.nodemanager.log-dirs</name>
-  <value>/d4/local/hadoop/log</value>
+  <value>/var/hadoop/log</value>
 </property>
 <property>
     <name>mapreduce.shuffle.port</name>
@@ -155,7 +155,7 @@
 </property>
 <property>
     <name>yarn.resourcemanager.ha.automatic-failover.zk-base-path</name>
-    <value>/d4/local/hadoop/yarn-leader-election</value>
+    <value>/var/hadoop/yarn-leader-election</value>
     <description>Optional setting. The default value is /yarn-leader-election</description>
 </property>
 <property>

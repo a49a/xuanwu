@@ -40,7 +40,7 @@
 <!-- 指定JN本地存储日志的路径 -->
 <property>
   <name>dfs.journalnode.edits.dir</name>
-  <value>/d3/local/hadoop/journal</value>
+  <value>/var/hadoop/journal</value>
 </property>
 <!-- 配置代理 -->
 <property>
@@ -72,11 +72,11 @@
 <!-- namenode、datanode数据存储目录 -->
 <property>
    <name>dfs.namenode.name.dir</name>
-   <value>/d1/hadoop/name,/d2/hadoop/name</value>
+   <value>/var/hadoop/name</value>
 </property>
 <property>
    <name>dfs.datanode.data.dir</name>
-   <value>/d1/hadoop/data,/d2/local/hadoop/data</value>
+   <value>/var/hadoop/data</value>
 </property>
 <!-- 启用webhdfs -->
 <property>

@@ -33,11 +33,11 @@
 
 <property>
   <name>mapreduce.jobhistory.done-dir</name>
-  <value>/d4/yarn/history/done</value>
+  <value>/var/yarn/history/done</value>
 </property>
 <property>
   <name>mapreduce.jobhistory.intermediate-done-dir</name>
-  <value>/d4/yarn/history/done_intermediate</value>
+  <value>/var/yarn/history/done_intermediate</value>
 </property>
 
 <property>
