@@ -1,0 +1,34 @@
+<configuration>
+<!-- 分区备份数（分区多会提高计算速度） -->
+<property>
+  <name>dfs.replication</name>
+  <value>2</value>
+</property>
+<!-- block大小128M -->
+<property>
+  <name>dfs.blocksize</name>
+  <value>128000000</value>
+</property>
+<!-- namenode、datanode数据存储目录 -->
+<property>
+   <name>dfs.namenode.name.dir</name>
+   <value>/var/hadoop/name</value>
+</property>
+<property>
+   <name>dfs.datanode.data.dir</name>
+   <value>/var/hadoop/data</value>
+</property>
+<!-- 启用webhdfs -->
+<property>
+  <name>dfs.webhdfs.enabled</name>
+  <value>true</value>
+</property>
+<property>
+    <name>dfs.http.address</name>
+    <value>tail1:50070</value>
+</property>
+<property>
+  <name>dfs.namenode.secondary.http-address</name>
+  <value>tail2:50090</value>
+ </property>
+</configuration>
