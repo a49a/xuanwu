@@ -1,0 +1,86 @@
+<configuration>
+<!-- 给namenode管理的元数据空间起一个逻辑名称 -->
+<property>
+ <name>dfs.nameservices</name>
+ <value>ns</value>
+</property>
+<!-- 指定两个namenode的逻辑名称 -->
+<property>
+ <name>dfs.ha.namenodes.ns</name>
+ <value>nn1,nn2</value>
+</property>
+<!-- 指定两个namenode的实例，RPC内部通信，监听地址 -->
+<property>
+ <name>dfs.namenode.rpc-address.ns.nn1</name>
+ <value>foo1:9000</value>
+</property>
+<property>
+ <name>dfs.namenode.rpc-address.ns.nn2</name>
+ <value>foo2:9000</value>
+</property>
+<!-- 指定两个namenode的实例，http监听地址 -->
+<property>
+ <name>dfs.namenode.http-address.ns.nn1</name>
+ <value>foo1:50070</value>
+</property>
+<property>
+ <name>dfs.namenode.http-address.ns.nn2</name>
+ <value>foo2:50070</value>
+</property>
+<!-- 指定journalnode日志节点的uri -->
+<property>
+  <name>dfs.namenode.shared.edits.dir</name>
+  <value>qjournal://foo1:8485;foo2:8485;foo3:8485;foo4:8485;foo5:8485/ns</value>
+</property>
+<!-- 分区备份数（分区多会提高计算速度） -->
+<property>
+  <name>dfs.replication</name>
+  <value>3</value>
+</property>
+<!-- 指定JN本地存储日志的路径 -->
+<property>
+  <name>dfs.journalnode.edits.dir</name>
+  <value>/var/hadoop/journal</value>
+</property>
+<!-- 配置代理 -->
+<property>
+  <name>dfs.client.failover.proxy.provider.ns</name>
+  <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+</property>
+<!-- 指定选择哪个隔离的方案，选择SSH -->
+<property>
+  <name>dfs.ha.fencing.methods</name>
+  <value>
+    sshfence
+    shell(/bin/true)
+  </value>
+</property>
+<property>
+  <name>dfs.ha.fencing.ssh.private-key-files</name>
+  <value>/root/.ssh/id_rsa</value>
+</property>
+<!-- 指定是否开启自动故障转移功能 -->
+<property>
+  <name>dfs.ha.automatic-failover.enabled</name>
+  <value>true</value>
+</property>
+<!-- block大小128M -->
+<property>
+  <name>dfs.blocksize</name>
+  <value>128000000</value>
+</property>
+<!-- namenode、datanode数据存储目录 -->
+<property>
+   <name>dfs.namenode.name.dir</name>
+   <value>/var/hadoop/name</value>
+</property>
+<property>
+   <name>dfs.datanode.data.dir</name>
+   <value>/var/hadoop/data</value>
+</property>
+<!-- 启用webhdfs -->
+<property>
+  <name>dfs.webhdfs.enabled</name>
+  <value>true</value>
+</property>
+</configuration>

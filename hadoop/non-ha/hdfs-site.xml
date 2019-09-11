@@ -12,11 +12,11 @@
 <!-- namenode、datanode数据存储目录 -->
 <property>
    <name>dfs.namenode.name.dir</name>
-   <value>/var/hadoop/name</value>
+   <value>file://var/hadoop/name</value>
 </property>
 <property>
    <name>dfs.datanode.data.dir</name>
-   <value>/var/hadoop/data</value>
+   <value>file://var/hadoop/data</value>
 </property>
 <!-- 启用webhdfs -->
 <property>
@@ -24,8 +24,8 @@
   <value>true</value>
 </property>
 <property>
-    <name>dfs.http.address</name>
-    <value>tail1:50070</value>
+ <name>dfs.namenode.http-address</name>
+ <value>tail1:50070</value>
 </property>
 <property>
   <name>dfs.namenode.secondary.http-address</name>
