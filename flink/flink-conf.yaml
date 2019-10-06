@@ -70,7 +70,7 @@ parallelism.default: 2
 
 # The high-availability mode. Possible options are 'NONE' or 'zookeeper'.
 #
-# high-availability: zookeeper
+high-availability: zookeeper
 
 # The path where metadata for master recovery is persisted. While ZooKeeper stores
 # the small ground truth for checkpoint and leader election, this location stores
@@ -79,14 +79,13 @@ parallelism.default: 2
 # Must be a durable file system that is accessible from all nodes
 # (like HDFS, S3, Ceph, nfs, ...) 
 #
-# high-availability.storageDir: hdfs:///flink/ha/
+high-availability.storageDir: hdfs://tail1:9000/flink/ha/
 
 # The list of ZooKeeper quorum peers that coordinate the high-availability
 # setup. This must be a list of the form:
 # "host1:clientPort,host2:clientPort,..." (default clientPort: 2181)
 #
-# high-availability.zookeeper.quorum: localhost:2181
-
+high-availability.zookeeper.quorum: tail1:2181,tail2:2181,tail3:2181
 
 # ACL options are based on https://zookeeper.apache.org/doc/r3.1.2/zookeeperProgrammers.html#sc_BuiltinACLSchemes
 # It can be either "creator" (ZOO_CREATE_ALL_ACL) or "open" (ZOO_OPEN_ACL_UNSAFE)

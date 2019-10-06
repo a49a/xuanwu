@@ -19,15 +19,15 @@
 <property>
   <name>mapreduce.application.classpath</name>
   <value>
-      /d1/hadoop/etc/hadoop,
-      /d1/hadoop/share/hadoop/common/*,
-      /d1/hadoop/share/hadoop/common/lib/*,
-      /d1/hadoop/share/hadoop/hdfs/*,
-      /d1/hadoop/share/hadoop/hdfs/lib/*,
-      /d1/hadoop/share/hadoop/mapreduce/*,
-      /d1/hadoop/share/hadoop/mapreduce/lib/*,
-      /d1/hadoop/share/hadoop/yarn/*,
-      /d1/hadoop/share/hadoop/yarn/lib/*
+      /opt/hadoop/etc/hadoop,
+      /opt/hadoop/share/hadoop/common/*,
+      /opt/hadoop/share/hadoop/common/lib/*,
+      /opt/hadoop/share/hadoop/hdfs/*,
+      /opt/hadoop/share/hadoop/hdfs/lib/*,
+      /opt/hadoop/share/hadoop/mapreduce/*,
+      /opt/hadoop/share/hadoop/mapreduce/lib/*,
+      /opt/hadoop/share/hadoop/yarn/*,
+      /opt/hadoop/share/hadoop/yarn/lib/*
   </value>
 </property>
 
@@ -42,13 +42,13 @@
 
 <property>
   <name>mapreduce.map.memory.mb</name>
-  <value>150000</value>
+  <value>1024</value>
   <description>每个Map任务的物理内存限制</description>
 </property>
 
 <property>
   <name>mapreduce.reduce.memory.mb</name>
-  <value>150000</value>
+  <value>1024</value>
   <description>每个Reduce任务的物理内存限制</description>
 </property>
 
