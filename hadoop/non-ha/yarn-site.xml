@@ -12,7 +12,7 @@
   <value>true</value>
 </property>
 
-<!-- 启用自动恢复 -->
+<!-- 启用自动恢复 RMApp状态机 RECOVER事件开启 -->
 <property>
   <name>yarn.resourcemanager.recovery.enabled</name>
   <value>true</value>
@@ -76,5 +76,9 @@
 <property>
   <name>yarn.log.server.url</name>
   <value>http://tail3:19888/jobhistory/logs</value>
+</property>
+<property>
+  <name>yarn.resourcemanager.am.max-attempts</name>
+  <value>100</value>
 </property>
 </configuration>
