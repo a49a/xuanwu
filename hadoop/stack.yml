@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+    environment:
+      - CLUSTER_NAME=foo
+    env_file:
+      - ./hadoop.env
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070"
+    env_file:
+      - ./hadoop.env
