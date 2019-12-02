@@ -13,3 +13,6 @@ services:
       SERVICE_PRECONDITION: "namenode:50070"
     env_file:
       - ./hadoop.env
+    deploy:
+      replicas: 2
+    

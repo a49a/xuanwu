@@ -17,6 +17,8 @@ services:
     depends_on:
       - jobmanager
     command: taskmanager
+    deploy:
+      replicas: 2
     volumes:
       - ./conf/log4j.properties:/opt/flink/conf/log4j-console.properties
       - ./lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
