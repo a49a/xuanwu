@@ -1,0 +1,84 @@
+tables:
+  - name: foo
+    type: source
+    update-mode: append
+    schema:
+    - name: id
+      type: LONG
+    - name: ct
+      type: TIMESTAMP
+      rowtime:
+        timestamps:
+          type: "from-field"
+          from: "eventTime"
+        watermarks:
+          type: "periodic-bounded"
+          delay: "60000"
+    - name: name
+      type: STRING
+    connector:
+      property-version: 1
+      type: kafka
+      version: 2.2.0
+      topic: foo-topic
+      startup-mode: earliest-offset
+      properties:
+      - key: zookeeper.connect
+        value: ${ZOOKEEPER}:2181
+      - key: bootstrap.servers
+        value: ${KAFKA}:9092
+      - key: group.id
+        value: foo-group
+    format:
+      property-version: 1
+      type: json
+      schema: "ROW(id LONG, ct TIMESTAMP, name STRING)"
+  - name: bar
+    type: sink
+    update-mode: append
+    schema:
+    - name: id
+      type: LONG
+    connector:
+      property-version: 1
+      type: kafka
+      version: 2.2.0
+      topic: bar-topic
+      startup-mode: earliest-offset
+      properties:
+      - key: zookeeper.connect
+        value: zookeeper:2181
+      - key: bootstrap.servers
+        value: kafka:9092
+      - key: group.id
+        value: foo-topic
+    format:
+      property-version: 1
+      type: json
+      schema: "ROW(id LONG)"
+  - name: es_sink
+    type: sink
+    update-mode: upsert
+    schema:
+    - name: id
+      type: LONG
+    - name: name
+      type: STRING
+    connector:
+      type: elasticsearch
+      version: 6
+      hosts:
+        - hostname: "elasticsearch"
+          port: 9200
+          protocol: "http"
+      index: "area-cnts"
+      document-type: "areacnt"
+      key-delimiter: "$"
+    format:
+      property-version: 1
+      type: json
+      schema: "ROW(id LONG, name STRING)"
+functions:
+  - name: topN
+    from: class
+    class: org.foo.sql.udf.TopN

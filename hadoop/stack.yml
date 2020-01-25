@@ -7,6 +7,9 @@ services:
       - CLUSTER_NAME=foo
     env_file:
       - ./hadoop.env
+    ports:
+      - 50070:50070
+
   datanode:
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
     environment:

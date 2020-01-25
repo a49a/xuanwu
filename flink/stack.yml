@@ -5,6 +5,7 @@ services:
     image: flink:1.9.1
     ports:
       - "8081:8081"
+    network_mode: "host"
     command: jobmanager
     volumes:
       - ./conf/log4j.properties:/opt/flink/conf/log4j-console.properties
@@ -17,11 +18,15 @@ services:
     depends_on:
       - jobmanager
     command: taskmanager
-    deploy:
-      replicas: 2
+    network_mode: "host"
+    # deploy:
+    #   replicas: 2
     volumes:
       - ./conf/log4j.properties:/opt/flink/conf/log4j-console.properties
       - ./lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
       - FLINK_ENV_JAVA_OPTS=-Dlog.file=/opt/flink/log/taskmanager.log
+
+  redis:
+    image: redis:5.0.7
