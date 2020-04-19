@@ -40,7 +40,7 @@
 <!-- 指定JN本地存储日志的路径 -->
 <property>
   <name>dfs.journalnode.edits.dir</name>
-  <value>/var/hadoop/journal</value>
+  <value>/var/hdfs/journal</value>
 </property>
 <!-- 配置代理 -->
 <property>
@@ -64,19 +64,14 @@
   <name>dfs.ha.automatic-failover.enabled</name>
   <value>true</value>
 </property>
-<!-- block大小128M -->
-<property>
-  <name>dfs.blocksize</name>
-  <value>128000000</value>
-</property>
 <!-- namenode、datanode数据存储目录 -->
 <property>
    <name>dfs.namenode.name.dir</name>
-   <value>/var/hadoop/name</value>
+   <value>/var/hdfs/name</value>
 </property>
 <property>
    <name>dfs.datanode.data.dir</name>
-   <value>/var/hadoop/data</value>
+   <value>/var/hdfs/data</value>
 </property>
 <!-- 启用webhdfs -->
 <property>

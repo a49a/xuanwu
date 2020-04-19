@@ -9,8 +9,8 @@ services:
     command: jobmanager
     volumes:
       - ./flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
-      - ./lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
-      - ./lib/flink-metrics-prometheus-1.9.0.jar:/opt/flink/lib/flink-metrics-prometheus-1.9.0.jar
+      - ../lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
+      - ../lib/flink-metrics-prometheus-1.9.0.jar:/opt/flink/lib/flink-metrics-prometheus-1.9.0.jar
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
       - FLINK_ENV_JAVA_OPTS=-Dlog.file=/opt/flink/log/jobmanager.log
@@ -25,8 +25,8 @@ services:
     #   replicas: 2
     volumes:
       - ./flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
-      - ./lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
-      - ./lib/flink-metrics-prometheus-1.9.0.jar:/opt/flink/lib/flink-metrics-prometheus-1.9.0.jar
+      - ../lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
+      - ../lib/flink-metrics-prometheus-1.9.0.jar:/opt/flink/lib/flink-metrics-prometheus-1.9.0.jar
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
       - FLINK_ENV_JAVA_OPTS=-Dlog.file=/opt/flink/log/taskmanager.log
@@ -37,7 +37,14 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-
+  # node-exporter:
+  #   image: prom/node-exporter:v0.18.1
+  #   ports:
+  #     - "9100:9100"
+  # pushgateway:
+  #   image: prom/pushgateway:v1.0.1
+  #   ports:
+  #     - "9091:9091"
   grafana:
     image: grafana/grafana:6.5.3
     ports:

@@ -1,0 +1,94 @@
+version: "3"
+
+services:
+  fm1:
+    image: flink:1.9.1
+    ports:
+      - 8081:8081
+    command: jobmanager
+    volumes:
+      - ./conf/log4j.properties:/opt/flink/conf/log4j-console.properties
+      - ../lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - FLINK_ENV_JAVA_OPTS=-Dlog.file=/opt/flink/log/jobmanager.log
+      - TZ=Asia/Shanghai
+  fm2:
+    image: flink:1.9.1
+    ports:
+      - 8081:8081
+    command: jobmanager
+    volumes:
+      - ./conf/log4j.properties:/opt/flink/conf/log4j-console.properties
+      - ../lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - FLINK_ENV_JAVA_OPTS=-Dlog.file=/opt/flink/log/jobmanager.log
+      - TZ=Asia/Shanghai
+  taskmanager:
+    image: flink:1.9.1
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    # deploy:
+    #   replicas: 2
+    volumes:
+      - ./conf/log4j.properties:/opt/flink/conf/log4j-console.properties
+      - ../lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - FLINK_ENV_JAVA_OPTS=-Dlog.file=/opt/flink/log/taskmanager.log
+      - TZ=Asia/Shanghai
+
+  zoo1:
+    image: zookeeper:3.5
+    restart: always
+    hostname: zoo1
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+  zoo2:
+    image: zookeeper:3.5
+    restart: always
+    hostname: zoo2
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zoo3:2888:3888;2181
+  zoo3:
+    image: zookeeper:3.5
+    restart: always
+    hostname: zoo3
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+    volumes:
+    #   - /var/hdfs/name:/hadoop/dfs/name
+      - namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=foo
+      - TZ=Asia/Shanghai
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 50070:50070
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+    volumes:
+    #   - /var/hdfs/data:/hadoop/dfs/data
+      - datanode:/hadoop/dfs/data 
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070"
+      TZ: "Asia/Shanghai"
+    env_file:
+      - ./hadoop.env
+    # deploy:
+    #   replicas: 2

@@ -1,10 +1,14 @@
-version: "3"
+version: "3.1"
 
 services:
   namenode:
     image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+    volumes:
+      # - /var/hdfs/name:/hadoop/dfs/name
+      - namenode:/hadoop/dfs/name
     environment:
       - CLUSTER_NAME=foo
+      - TZ=Asia/Shanghai
     env_file:
       - ./hadoop.env
     ports:
@@ -12,10 +16,63 @@ services:
 
   datanode:
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+    volumes:
+      # - /var/hdfs/data:/hadoop/dfs/data
+      - datanode:/hadoop/dfs/data 
     environment:
       SERVICE_PRECONDITION: "namenode:50070"
+      TZ: "Asia/Shanghai"
     env_file:
       - ./hadoop.env
-    deploy:
-      replicas: 2
-    
+    # deploy:
+    #   replicas: 2
+
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop2.7.4-java8
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075"
+      TZ: "Asia/Shanghai"
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 8088:8088
+
+  nodemanager:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop2.7.4-java8
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+
+  zoo1:
+    image: zookeeper:3.5
+    restart: always
+    hostname: zoo1
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+  zoo2:
+    image: zookeeper:3.5
+    restart: always
+    hostname: zoo2
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zoo3:2888:3888;2181
+  zoo3:
+    image: zookeeper:3.5
+    restart: always
+    hostname: zoo3
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+
+volumes:
+  datanode:
+  namenode:
+  # hadoop_historyserver:

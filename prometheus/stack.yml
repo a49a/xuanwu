@@ -9,6 +9,8 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
   node-exporter:
     image: prom/node-exporter:v0.18.1
+    ports:
+      - "9100:9100"
   pushgateway:
     image: prom/pushgateway:v1.0.1
     ports:

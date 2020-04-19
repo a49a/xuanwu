@@ -1,0 +1,69 @@
+version: "3"
+
+services:
+  jobmanager:
+    image: flink:1.10.0
+    ports:
+      - 8081:8081
+    command: jobmanager
+    volumes:
+      - ../conf/log4j.properties:/opt/flink/conf/log4j-console.properties
+      - ../conf/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
+      - ../../lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
+    environment:
+      # - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - FLINK_ENV_JAVA_OPTS=-Dlog.file=/opt/flink/log/jobmanager.log
+      - TZ=Asia/Shanghai
+
+  taskmanager:
+    image: flink:1.10.0
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    # deploy:
+    #   replicas: 2
+    volumes:
+      - ../conf/log4j.properties:/opt/flink/conf/log4j-console.properties
+      - ../conf/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
+      - ../../lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
+    environment:
+      # - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - FLINK_ENV_JAVA_OPTS=-Dlog.file=/opt/flink/log/taskmanager.log
+      - TZ=Asia/Shanghai
+
+  nn:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+    volumes:
+      # - /var/hdfs/name:/hadoop/dfs/name
+      - namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=foo
+      - TZ=Asia/Shanghai
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 50070:50070
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+    volumes:
+      # - /var/hdfs/data:/hadoop/dfs/data
+      - datanode:/hadoop/dfs/data 
+    environment:
+      SERVICE_PRECONDITION: "nn:50070"
+      TZ: "Asia/Shanghai"
+    env_file:
+      - ./hadoop.env
+    # deploy:
+    #   replicas: 2
+
+networks:
+  outside:
+    external:
+      name: "host"
+
+volumes:
+  datanode:
+  namenode:
+
+

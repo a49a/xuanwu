@@ -233,4 +233,9 @@
   <value>-Xmx15098m</value>
 </property>
 
+<property>
+  <name>yarn.resourcemanager.am.max-attempts</name>
+  <value>100</value>
+</property>
+
 </configuration>

@@ -9,18 +9,14 @@
   <name>dfs.blocksize</name>
   <value>128000000</value>
 </property>
-<property>  
-    <name>hadoop.tmp.dir</name>  
-    <value>/var/hadoop/tmp</value>  
-</property>  
 <!-- namenode、datanode数据存储目录 -->
 <property>
    <name>dfs.namenode.name.dir</name>
-   <value>file://var/hadoop/name</value>
+   <value>/var/hdfs/name</value>
 </property>
 <property>
    <name>dfs.datanode.data.dir</name>
-   <value>file://var/hadoop/data</value>
+   <value>/var/hdfs/data</value>
 </property>
 <!-- 启用webhdfs -->
 <property>
@@ -31,8 +27,10 @@
  <name>dfs.namenode.http-address</name>
  <value>tail1:50070</value>
 </property>
+
+<!-- 调试打日志设置的一些选项-->
 <property>
-  <name>dfs.namenode.secondary.http-address</name>
-  <value>tail2:50090</value>
- </property>
+  <name>dfs.heartbeat.interval</name>
+  <value>30</name>
+</property>
 </configuration>
