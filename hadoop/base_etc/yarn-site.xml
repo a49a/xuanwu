@@ -81,4 +81,22 @@
   <name>yarn.resourcemanager.am.max-attempts</name>
   <value>100</value>
 </property>
+
+<property>
+  <name>yarn.resourcemanager.scheduler.monitor.enable</name>
+  <value>true</value>	
+</property>
+<property>
+  <name>yarn.resourcemanager.monitor.capacity.preemption.total_preemption_per_round</name>
+  <value>0.33</value>	
+</property>
+<property>
+  <name>yarn.resourcemanager.monitor.capacity.preemption.max_wait_before_kill	</name>
+  <value>3000</value>	
+</property>
+<property>
+  <name>yarn.resourcemanager.monitor.capacity.preemption.natural_termination_factor</name>
+  <value>1</value>	
+</property>
+
 </configuration>

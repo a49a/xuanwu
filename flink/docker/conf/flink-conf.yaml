@@ -103,17 +103,16 @@ parallelism.default: 1
 # Supported backends are 'jobmanager', 'filesystem', 'rocksdb', or the
 # <class-name-of-factory>.
 #
-state.backend: rocksdb
+state.backend: jobmanager
 
 # Directory for checkpoints filesystem, when using any of the default bundled
 # state backends.
 #
-state.backend.fs.checkpointdir: hdfs://nn:9000/flink/pointsdata/
-state.checkpoints.dir: hdfs://nn:9000/flink/checkpoints
+state.checkpoints.dir: hdfs://nn:9000/flink/checkpoints/
 
 # Default target directory for savepoints, optional.
 #
-state.savepoints.dir: hdfs://nn:9000/flink/savepoints
+state.savepoints.dir: hdfs://nn:9000/flink/savepoints/
 
 # Flag to enable/disable incremental checkpoints for backends that
 # support incremental checkpoints (like the RocksDB state backend). 
@@ -259,3 +258,8 @@ historyserver.archive.fs.dir: hdfs://nn:9000/flink/completed-jobs/
 historyserver.archive.fs.refresh-interval: 10000
 blob.server.port: 6124
 query.server.port: 6125
+
+
+restart-strategy: fixed-delay
+restart-strategy.fixed-delay.attempts: 3
+restart-strategy.fixed-delay.delay: 2 s

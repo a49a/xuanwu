@@ -44,7 +44,7 @@ jobmanager.heap.size: 1024m
 
 # The heap size for the TaskManager JVM
 
-taskmanager.heap.size: 2048m
+taskmanager.heap.size: 1024m
 
 
 # The number of task slots that each TaskManager offers. Each slot runs one parallel pipeline.
@@ -103,7 +103,7 @@ high-availability.zookeeper.quorum: tail1:2181,tail2:2181,tail3:2181
 # Supported backends are 'jobmanager', 'filesystem', 'rocksdb', or the
 # <class-name-of-factory>.
 #
-state.backend: filesystem
+state.backend: rocksdb
 
 state.backend.fs.checkpointdir: hdfs:///flink/pointsdata/
 # Directory for checkpoints filesystem, when using any of the default bundled

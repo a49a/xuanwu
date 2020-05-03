@@ -11,8 +11,8 @@ ${prefix} ${opt_path}/zookeeper/bin/zkServer.sh start
 ${prefix} ${opt_path}/zookeeper/bin/zkServer.sh status
 
 if [[ "x${HADOOP}" != "x" ]]; then
-    ssh tail1 ${opt_path}/hadoop/sbin/start-dfs.sh
-    ssh tail2 ${opt_path}/hadoop/sbin/start-yarn.sh
+    ssh root@tail1 ${opt_path}/hadoop/sbin/start-dfs.sh
+    ssh root@tail2 ${opt_path}/hadoop/sbin/start-yarn.sh
 fi
 
 if [[ "x${KAFKA}" != "x" ]]; then
