@@ -12,11 +12,10 @@ yum clean all && yum makecache
 yum -y update
 
 #关闭防火墙
-systemctl stop firewalld.service
-systemctl disable firewalld.service 
-mv /etc/sysconfig/selinux /etc/sysconfig/selinux.bak
-echo "SELINUX=disabled" > /etc/sysconfig/selinux
-echo "SELINUXTYPE=targeted" >> /etc/sysconfig/selinux
+systemctl stop firewalld.service && systemctl disable firewalld.service
+cp /etc/sysconfig/selinux /etc/sysconfig/selinux.bak
+sed -i 's#SELINUX=enforcing#SELINUX=disabled#g' /etc/selinux/config
+setenforce 0
 
 wget -P ${TAR_PATH} https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/stable/apache-zookeeper-3.5.5-bin.tar.gz
 wget -P ${TAR_PATH} http://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.9.2/hadoop-2.9.2.tar.gz
